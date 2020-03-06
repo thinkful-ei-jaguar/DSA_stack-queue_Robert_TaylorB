@@ -171,6 +171,54 @@ class Queue {
         return node.value
     }
 }
+class _NodeDoubleQueue {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+        this.before = null;
+    } 
+}
+class DoubleQueue {
+    constructor() {
+        this.first = null;
+        this.last = null;
+    }
+    enqueue(data) { //  1 2 3
+        const newNode = new _NodeQueue(data)
+        if(this.first === null) {
+            this.first = newNode;
+            newNode.before =this.first;
+        }
+        if(this.last) {
+            this.last.next = newNode;
+            newNode.before=this.last.before;
+        }
+
+        this.last = newNode
+    }
+    dequeue() { 
+        if (this.first === null) {
+            return;
+        }
+        const node = this.first;
+        this.first = this.first.next;
+        if (node === this.last) {
+            this.last = null;
+        }
+
+        return node.value
+    }
+}
+class twoStackQueue{
+    constructor(){
+        this.firstS=new stack();
+        this.secondS=new stack();
+    }
+    enqueue(data) {}
+    dequeue() {}
+}
+
+
 
 
 
