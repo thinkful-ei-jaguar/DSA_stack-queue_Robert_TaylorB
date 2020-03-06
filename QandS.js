@@ -81,21 +81,22 @@ string = string.replace(/[^a-zA-Z0-9()+/*\-]/g, "");
     return true
 }
 
-function sortStack(pile, tempstack= new stack()) { // 7 5 6 9 4 1
+function sortStack(pile, tempstack) { // 7 5 6 9 4 1
     let temp = pile.top
     let current = pile.top
+    let before=pile.top;
     while(current != null) {
-    if (temp.data < current.data) {
-        temp = current
-        tempstack.push(temp)
+    if (temp.data < current.data ) {
+        temp = current.next;
+        before = current;
     }
     current = current.next
     }
+    tempstack.push(temp)
+    before.next=temp.next;
+
     console.log(tempstack)
-    pile.pop()
     return sortStack(pile, tempstack)
-
-
 }
 
 function testStack () {
@@ -107,11 +108,11 @@ function testStack () {
     testStack.push(6)
     testStack.push(5)
     testStack.push(7)
-
-    sortStack(testStack)
+    tempstack = new stack()
+    sortStack(testStack,tempstack)
 }
 
-testStack()
+//testStack()
 
 class _NodeQueue {
     constructor(value) {
@@ -193,10 +194,48 @@ class twoStackQueue{
         this.firstS=new stack();
         this.secondS=new stack();
     }
-    enqueue(data) {}
-    dequeue() {}
+    enqueue(data) {//1 2 3
+        if(this.firstS.top == null){
+            firstS.push(data);
+            secondS.push(data);
+        }
+        const newtop=new _Node(data,this.top);
+        this.firstS.top = newtop;
+    }
+    dequeue() {
+        let temp = this.firstS.top;
+        let before;
+        while(temp!==this.secondS.top){
+            before=temp;
+            temp=temp.next;
+        }
+        before.next=null;
+        this.secondS.top=before;
+    }
 }
 
+function Bank(num){
+    let line= new Queue;
+    for(let i=0;i<num;i++){
+        let a = Math.random();
+        line.enqueue(a)
+        //console.log(a)
+    }
+    let temp = line.first;
+    while(line.first!==null){
+        if(temp.value < .25){
+            line.last.next=temp.next;
+            let b = Math.random();
+            temp.value=b;
+            line.last=temp
+            line.last.next=null;
+        }else{
+            console.log(line.dequeue());
+            temp=temp.next;
+            //console.log(temp)
+        }
+    }
+}
 
 
 
@@ -227,39 +266,60 @@ function stackMain(){
 
 //stackMain();
 
-// function peek(queue) {
-//     return console.log(queue.first)
-// }
+function peek(queue) {
+    return queue.first
+}
 
-// function isEmpty(queue) {
-//     if (queue.first != null) {
-//         return false
-//     }
-//     return true
-// }
+function isEmpty(queue) {
+    if (queue.first != null) {
+        return false
+    }
+    return true
+}
 
-// function display(queue) {
-//     let tempQueue = queue.first
-//     while(tempQueue != null) {
-//         console.log(tempQueue)
-//         tempQueue = tempQueue.next
-//     }
-// }
+function display(queue) {
+    let tempQueue = queue.first
+    while(tempQueue != null) {
+        console.log(tempQueue)
+        tempQueue = tempQueue.next
+    }
+}
 
-// function queueMain () {
-//     starTrekQ = new Queue()
+function queueMain () {
+    starTrekQ = new Queue()
 
-//     starTrekQ.enqueue("Kirk")
-//     starTrekQ.enqueue("Spock")
-//     starTrekQ.enqueue("Uhura")
-//     starTrekQ.enqueue("Sulu")
-//     starTrekQ.enqueue("Checkov")
-//     //peek(starTrekQ)
-//     //isEmpty(starTrekQ)
-    
-//     starTrekQ.dequeue()
-//     starTrekQ.dequeue()
-//     display(starTrekQ)
-// }
+    starTrekQ.enqueue("Kirk")
+    starTrekQ.enqueue("Spock")
+    starTrekQ.enqueue("Uhura")
+    starTrekQ.enqueue("Sulu")
+    starTrekQ.enqueue("Checkov")
+    //peek(starTrekQ)
+    //isEmpty(starTrekQ)
+    starTrekQ.dequeue()
+    starTrekQ.dequeue()
+    display(starTrekQ)
+    DancersM=new Queue();
+    DancersF=new Queue();
+    DancersF.enqueue("F Jane")
+    DancersM.enqueue("M Frank")
+    while(peek(DancersF)||peek(DancersM)){
+        if(peek(DancersM)&&peek(DancersF)){
+            let a =DancersF.dequeue();
+            let b= DancersM.dequeue();
+            console.log(`Female dancer is ${a}, and the male dancer is ${b}`)
+        }
+        else if (!peek(DancersM) && peek(DancersF)){
+            console.log(`only Female dancers`)
+            break;
+        }
+        else if (peek(DancersM) && !peek(DancersF)){
+            console.log(` only male dancers`)
+            break;
+        }
+    }
+    Bank(10);
 
-// queueMain()
+
+}
+
+queueMain()
