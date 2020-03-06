@@ -5,25 +5,8 @@ class _Node {
     }
     
 }
-/*class Stack {
-    constructor() {
-        this.top = null;
-    }
-    push(data) {
-        if (this.top === null) {
-            this.top = new _Node(data, null);
-            return this.top;
-        }
-        const node = new _Node(data, this.top);
-        this.top = node;
-    }
-    pop() {
-        const node = this.top;
-        this.top = node.next;
-        return node.data;
-    }
-}*/
-class stack{
+
+class stack {
     constructor(){
         this.top=null;
     }
@@ -98,41 +81,37 @@ string = string.replace(/[^a-zA-Z0-9()+/*\-]/g, "");
     return true
 }
 
-// class _NodeQueue {
-//     constructor(value) {
-//         this.value = value;
-//         this.next = null;
-//     }
-// }
-// class Queue {
-//     constructor() {
-//         this.first = null;
-//         this.last = null;
-//     }
-//     enqueue(data) {
-//         const node = new _NodeQueue(data);
+function sortStack(pile, tempstack= new stack()) { // 7 5 6 9 4 1
+    let temp = pile.top
+    let current = pile.top
+    while(current != null) {
+    if (temp.data < current.data) {
+        temp = current
+        tempstack.push(temp)
+    }
+    current = current.next
+    }
+    console.log(tempstack)
+    pile.pop()
+    return sortStack(pile, tempstack)
 
-//         if (this.first === null) {
-//             this.first = node;
-//         }
 
-//         if (this.last) {
-//             this.last.next = node;
-//         }
-//         this.last = node;
-//     }
-//     dequeue() {
-//        if (this.first === null) {
-//            return;
-//        }
-//        const node = this.first;
-//        this.first = this.first.next;
-//        if (node === this.last) {
-//            this.last = null;
-//        }
-//        return node.value;
-//    }
-// }
+}
+
+function testStack () {
+    const testStack = new stack()
+
+    testStack.push(1)
+    testStack.push(4)
+    testStack.push(9)
+    testStack.push(6)
+    testStack.push(5)
+    testStack.push(7)
+
+    sortStack(testStack)
+}
+
+testStack()
 
 class _NodeQueue {
     constructor(value) {
@@ -248,39 +227,39 @@ function stackMain(){
 
 //stackMain();
 
-function peek(queue) {
-    return console.log(queue.first)
-}
+// function peek(queue) {
+//     return console.log(queue.first)
+// }
 
-function isEmpty(queue) {
-    if (queue.first != null) {
-        return false
-    }
-    return true
-}
+// function isEmpty(queue) {
+//     if (queue.first != null) {
+//         return false
+//     }
+//     return true
+// }
 
-function display(queue) {
-    let tempQueue = queue.first
-    while(tempQueue != null) {
-        console.log(tempQueue)
-        tempQueue = tempQueue.next
-    }
-}
+// function display(queue) {
+//     let tempQueue = queue.first
+//     while(tempQueue != null) {
+//         console.log(tempQueue)
+//         tempQueue = tempQueue.next
+//     }
+// }
 
-function queueMain () {
-    starTrekQ = new Queue()
+// function queueMain () {
+//     starTrekQ = new Queue()
 
-    starTrekQ.enqueue("Kirk")
-    starTrekQ.enqueue("Spock")
-    starTrekQ.enqueue("Uhura")
-    starTrekQ.enqueue("Sulu")
-    starTrekQ.enqueue("Checkov")
-    //peek(starTrekQ)
-    //isEmpty(starTrekQ)
+//     starTrekQ.enqueue("Kirk")
+//     starTrekQ.enqueue("Spock")
+//     starTrekQ.enqueue("Uhura")
+//     starTrekQ.enqueue("Sulu")
+//     starTrekQ.enqueue("Checkov")
+//     //peek(starTrekQ)
+//     //isEmpty(starTrekQ)
     
-    starTrekQ.dequeue()
-    starTrekQ.dequeue()
-    display(starTrekQ)
-}
+//     starTrekQ.dequeue()
+//     starTrekQ.dequeue()
+//     display(starTrekQ)
+// }
 
-queueMain()
+// queueMain()
